@@ -24,6 +24,8 @@ function test1 () {
 } */
 // code from J
 
+let amountDrawnCards = 0;
+
 function generateDeck(){
 
     let deck = [];
@@ -75,13 +77,61 @@ function updateUI(){
 }
 
 
-
-
 let deck = generateDeck();
 console.log(deck);
 updateUI();
 
 // Get clicked card ID
-document.querySelector('article').addEventListener('click', (e) => {
-    console.log(e.target.parentNode.getAttribute('data-id'));
-})
+let cards = document.querySelectorAll('article');
+
+console.log(cards)
+
+let cardValue1 = null;
+let cardValue2 = null;
+let amountClicked = 0;
+
+for(let i = 0; i<cards.length; i++){
+
+    cards[i].addEventListener('click', (e) => {
+        console.log(e.target.parentNode.getAttribute('data-id'));
+        
+        console.log(amountClicked);
+
+        amountClicked = amountClicked+1;
+
+        if (amountClicked == 1) {
+            cardValue1 = e.target.parentNode.getAttribute('data-id');
+            console.log("test1")
+        } else if (amountClicked == 2) {
+            cardValue2 = e.target.parentNode.getAttribute('data-id');
+            console.log("test2")
+            cardChecker()
+        } 
+        function cardChecker() {
+
+        if (cardValue1 == cardValue2) {
+            console.log("pair!")
+            cardValue1 = null;
+            cardValue2 = null;
+            amountClicked = 0;
+        } else {
+            console.log("not Pair!")
+            cardValue1 = null;
+            cardValue2 = null;
+            amountClicked = 0;
+
+        }
+    }
+        amountDrawnCards = amountDrawnCards+1;
+        console.log(amountDrawnCards)
+   
+        
+    })  
+} 
+
+
+
+
+
+//clears clicks, cardvalue1 and 2
+
