@@ -1,0 +1,26 @@
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+main {
+    display: grid;
+    grid-template-columns: repeat(6, 100px);
+    gap: 1rem;
+}
+
+main article {
+    height: 100px;
+    background: #eee;
+}
+
+main article.flipped img {
+    opacity: 1;
+}
+
+main article > img {
+    width: 100%;
+    opacity: 0;
+}
