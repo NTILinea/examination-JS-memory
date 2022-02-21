@@ -1,28 +1,5 @@
-/*let HTMLCard = document.querySelector('.card')
-
-//click event test
-HTMLCard.addEventListener('click', () => {
-    console.log('test')
-})
-
-let cardApperance = {
-    //card apperance values
-    minHight: 1,
-    minWidth: 1,
-
-}
-
-let cardValue = {value: 1}
-
-function test1 () {
-    if (cardValue.value = 1) {
-        "the code works!"
-    }
-    else {
-        "the code does NOT work :C"
-    }
-} */
-// code from J
+let resault = document.querySelector("h3");
+let lives = document.querySelector("#lives");
 
 let amountDrawnCards = 0;
 
@@ -41,10 +18,13 @@ function generateDeck(){
 
         deck.push(card) // card A
         deck.push(card) // card B
+        
 
     }
 
-    return deck;
+    let shuffle = shuffleArray(deck)
+    console.log(deck)
+    return deck
 
 }
 
@@ -89,22 +69,25 @@ console.log(cards)
 let cardValue1 = null;
 let cardValue2 = null;
 let amountClicked = 0;
+let livesLeft = 3;
 
 for(let i = 0; i<cards.length; i++){
 
     cards[i].addEventListener('click', (e) => {
-        console.log(e.target.parentNode.getAttribute('data-id'));
+        console.log("card ID:" + e.target.parentNode.getAttribute('data-id'));
         
-        console.log(amountClicked);
+        console.log("amount of times clicked:" + amountClicked);
 
         amountClicked = amountClicked+1;
 
+        document.querySelector('#cardCount').innerHTML =`Cards Drawn: ${amountDrawnCards+1}`;
+
+        
+
         if (amountClicked == 1) {
             cardValue1 = e.target.parentNode.getAttribute('data-id');
-            console.log("test1")
         } else if (amountClicked == 2) {
             cardValue2 = e.target.parentNode.getAttribute('data-id');
-            console.log("test2")
             cardChecker()
         } 
         function cardChecker() {
@@ -114,20 +97,35 @@ for(let i = 0; i<cards.length; i++){
             cardValue1 = null;
             cardValue2 = null;
             amountClicked = 0;
+            resault.innerHTML = "It's a pair!"
         } else {
             console.log("not Pair!")
             cardValue1 = null;
             cardValue2 = null;
             amountClicked = 0;
-
+            resault.innerHTML = "It's NOT a pair!"
+            //livesLeft = livesLeft-1 
+            lives.innerHTML = `Lives left: ${livesLeft}`
+            console.log("Lives Left:" + livesLeft)
+        }
+        if (livesLeft == 0) {
+            alert("Game Over!")
+            location.reload();
         }
     }
         amountDrawnCards = amountDrawnCards+1;
-        console.log(amountDrawnCards)
-   
-        
+        console.log("amount Drawn" + amountDrawnCards)
     })  
 } 
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
 
 
 

@@ -5,6 +5,10 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+#cardCount {
+    align-self: flex-end;
+}
 main {
     display: grid;
     grid-template-columns: repeat(6, 100px);
