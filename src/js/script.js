@@ -68,6 +68,10 @@ console.log(cards)
 
 let cardValue1 = null;
 let cardValue2 = null;
+
+let failSafeCardValue1 = null;
+let failSafeCardValue2 = null;
+
 let amountClicked = 0;
 let livesLeft = 3;
 
@@ -87,8 +91,10 @@ for(let i = 0; i<cards.length; i++){
 
         if (amountClicked == 1) {
             cardValue1 = e.target.parentNode.getAttribute('data-id');
+            failSafeCardValue1 = e.target.parentNode.getAttribute('data-id');
         } else if (amountClicked == 2) {
             cardValue2 = e.target.parentNode.getAttribute('data-id');
+            failSafeCardValue1 = e.target.parentNode.getAttribute('data-id');
             cardChecker()
 
         } 
@@ -98,21 +104,23 @@ for(let i = 0; i<cards.length; i++){
             console.log("pair!")
             cardValue1 = null;
             cardValue2 = null;
+            failSafeCardValue1 = null
+            failSafeCardValue2 = null
             amountClicked = 0;
             resault.innerHTML = "It's a pair!"
         } else {
             console.log("not Pair!")
 
-            document.querySelector(`[data-id="${cardValue1}"]`).classList.remove('flipped');
+            document.querySelector(`[data-id="${cardValue1}"]`).classList.remove('flipped'); //only removes the flipped object on A cards not B cards
             document.querySelector(`[data-id="${cardValue2}"]`).classList.remove('flipped');
 
-            cardValue1 = null;
-            cardValue2 = null;
+            
             amountClicked = 0;
-            resault.innerHTML = "It's NOT a pair!"
-            //livesLeft = livesLeft-1 
-            lives.innerHTML = `Lives left: ${livesLeft}`
-            console.log("Lives Left:" + livesLeft)
+            resault.innerHTML = "It's NOT a pair!";
+            //livesLeft = livesLeft-1 ;
+            lives.innerHTML = `Lives left: ${livesLeft}`;
+            console.log("Lives Left:" + livesLeft);
+            failSafeFlipped();
         }
 
         //Lives checker (to activate lives mode remove the "//"" in 107)
@@ -125,6 +133,16 @@ for(let i = 0; i<cards.length; i++){
         console.log("amount Drawn:" + amountDrawnCards)
     })  
 } 
+
+function failSafeFlipped () {
+
+    document.querySelector(`[data-id="${cardValue1}"]`).classList.remove('flipped'); 
+    document.querySelector(`[data-id="${cardValue2}"]`).classList.remove('flipped');
+
+    failSafeCardValue1 = null;
+    failSafeCardValue2 = null;
+    
+}
 
 
 function shuffleArray(array) {
