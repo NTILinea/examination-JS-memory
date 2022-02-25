@@ -13,7 +13,7 @@ function generateDeck(){
             id: i,
             img: `char-${i}.png`,
             matched: false,
-            flipped: true
+            flipped: false
         }
 
         deck.push(card) // card A
@@ -22,7 +22,7 @@ function generateDeck(){
 
     }
 
-    let shuffle = shuffleArray(deck)
+    //let shuffle = shuffleArray(deck)
     console.log(deck)
     return deck
 
@@ -75,6 +75,7 @@ for(let i = 0; i<cards.length; i++){
 
     cards[i].addEventListener('click', (e) => {
         console.log("card ID:" + e.target.parentNode.getAttribute('data-id'));
+        e.target.parentNode.classList.add('flipped')
         
         console.log("amount of times clicked:" + amountClicked);
 
@@ -89,6 +90,7 @@ for(let i = 0; i<cards.length; i++){
         } else if (amountClicked == 2) {
             cardValue2 = e.target.parentNode.getAttribute('data-id');
             cardChecker()
+
         } 
         function cardChecker() {
 
@@ -100,6 +102,10 @@ for(let i = 0; i<cards.length; i++){
             resault.innerHTML = "It's a pair!"
         } else {
             console.log("not Pair!")
+
+            document.querySelector(`[data-id="${cardValue1}"]`).classList.remove('flipped');
+            document.querySelector(`[data-id="${cardValue2}"]`).classList.remove('flipped');
+
             cardValue1 = null;
             cardValue2 = null;
             amountClicked = 0;
@@ -108,15 +114,18 @@ for(let i = 0; i<cards.length; i++){
             lives.innerHTML = `Lives left: ${livesLeft}`
             console.log("Lives Left:" + livesLeft)
         }
+
+        //Lives checker (to activate lives mode remove the "//"" in 107)
         if (livesLeft == 0) {
             alert("Game Over!")
             location.reload();
         }
     }
         amountDrawnCards = amountDrawnCards+1;
-        console.log("amount Drawn" + amountDrawnCards)
+        console.log("amount Drawn:" + amountDrawnCards)
     })  
 } 
+
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
