@@ -1,5 +1,5 @@
 body {
-  height: 100vh;
+  height: 120vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -9,6 +9,11 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+#cardCount {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 
 main {

@@ -1,4 +1,3 @@
-let resault = document.querySelector("h3");
 let lives = document.querySelector("#lives");
 
 let amountDrawnCards = 0;
@@ -22,7 +21,7 @@ function generateDeck(){
 
     }
 
-    //let shuffle = shuffleArray(deck)
+    //let shuffle = shuffleArray(deck) //remove the "//" when code is fixed
     console.log(deck)
     return deck
 
@@ -69,9 +68,6 @@ console.log(cards)
 let cardValue1 = null;
 let cardValue2 = null;
 
-let failSafeCardValue1 = null;
-let failSafeCardValue2 = null;
-
 let amountClicked = 0;
 let livesLeft = 3;
 
@@ -95,7 +91,7 @@ for(let i = 0; i<cards.length; i++){
         } else if (amountClicked == 2) {
             cardValue2 = e.target.parentNode.getAttribute('data-id');
             failSafeCardValue1 = e.target.parentNode.getAttribute('data-id');
-            cardChecker()
+            setTimeout(cardChecker, 500);
 
         } 
         function cardChecker() {
@@ -104,26 +100,23 @@ for(let i = 0; i<cards.length; i++){
             console.log("pair!")
             cardValue1 = null;
             cardValue2 = null;
-            failSafeCardValue1 = null
-            failSafeCardValue2 = null
             amountClicked = 0;
-            resault.innerHTML = "It's a pair!"
         } else {
             console.log("not Pair!")
 
-            document.querySelector(`[data-id="${cardValue1}"]`).classList.remove('flipped'); //only removes the flipped object on A cards not B cards
+            document.querySelector(`[data-id="${cardValue1}"]`).classList.remove('flipped'); 
             document.querySelector(`[data-id="${cardValue2}"]`).classList.remove('flipped');
+            //only removes the flipped object on "A" cards. not on "B" cards
 
-            
             amountClicked = 0;
-            resault.innerHTML = "It's NOT a pair!";
-            //livesLeft = livesLeft-1 ;
+            livesLeft = livesLeft-1 ;
             lives.innerHTML = `Lives left: ${livesLeft}`;
             console.log("Lives Left:" + livesLeft);
-            failSafeFlipped();
         }
 
-        //Lives checker (to activate lives mode remove the "//"" in 107)
+        
+
+        //Lives checker 
         if (livesLeft == 0) {
             alert("Game Over!")
             location.reload();
@@ -134,15 +127,7 @@ for(let i = 0; i<cards.length; i++){
     })  
 } 
 
-function failSafeFlipped () {
 
-    document.querySelector(`[data-id="${cardValue1}"]`).classList.remove('flipped'); 
-    document.querySelector(`[data-id="${cardValue2}"]`).classList.remove('flipped');
-
-    failSafeCardValue1 = null;
-    failSafeCardValue2 = null;
-    
-}
 
 
 function shuffleArray(array) {
